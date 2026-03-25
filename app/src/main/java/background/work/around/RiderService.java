@@ -35,8 +35,10 @@ public class RiderService extends Service {
             AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
             if (am == null) return;
 
-            Intent serviceIntent = new Intent(ctx, RiderService.class);
-            PendingIntent operation = PendingIntent.getForegroundService(
+			Intent serviceIntent = new Intent(getPackageName() + ".ALARM");
+            serviceIntent.setPackage(getPackageName());            
+            
+            PendingIntent operation = PendingIntent.getBroadcast(
                     ctx, 
                     333, 
                     serviceIntent, 
