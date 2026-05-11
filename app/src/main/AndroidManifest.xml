@@ -84,6 +84,7 @@ xmlns:tools="http://schemas.android.com/tools">
 		<service 
             android:name="background.work.around.PrintService"
 			android:enabled="true"
+			android:label="This is stub. I don't print."
             android:directBootAware="true"
 			android:process=":print1337backgroundworkaround"
             android:permission="android.permission.BIND_PRINT_SERVICE"
