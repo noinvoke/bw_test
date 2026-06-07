@@ -14,8 +14,8 @@ defaultConfig {
     applicationId "background.work.around.client.example"  
     minSdk 29
     targetSdk 36
-    versionCode 1
-    versionName "1.0"  
+    versionCode 18
+    versionName "18.0"  
 }  
 
 buildTypes {  
