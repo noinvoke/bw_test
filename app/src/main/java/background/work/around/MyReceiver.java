@@ -33,9 +33,9 @@ public class MyReceiver extends BroadcastReceiver {
                 Intent serviceIntent = new Intent(appContext, NotificationService.class);                
                 appContext.bindService(serviceIntent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT);
                 try {
-				Intent serviceIntent2 = new Intent(appContext, RiderService.class);                                	
-                appContext.startForegroundService(serviceIntent);
-                appContext.startForegroundService(serviceIntent2);
+				appContext.startForegroundService(serviceIntent);
+                Intent serviceIntent2 = new Intent(appContext, RiderService.class);                                	                
+				appContext.startForegroundService(serviceIntent2);
                 } catch (Throwable t) {}
                 android.os.SystemClock.sleep(30_000);
 				Start.RunService(appContext);
