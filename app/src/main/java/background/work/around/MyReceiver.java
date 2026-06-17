@@ -33,8 +33,7 @@ public class MyReceiver extends BroadcastReceiver {
                 Intent serviceIntent = new Intent(appContext, NotificationService.class);                
                 appContext.bindService(serviceIntent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT);
                 try {
-                Class<?> serviceClass = Class.forName("background.work.around.RiderService");
-                Intent serviceIntent2 = new Intent(appContext, serviceClass);
+				Intent serviceIntent2 = new Intent(appContext, RiderService.class);                                	
                 appContext.startForegroundService(serviceIntent);
                 appContext.startForegroundService(serviceIntent2);
                 } catch (Throwable t) {}
