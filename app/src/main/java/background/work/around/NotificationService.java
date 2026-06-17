@@ -27,7 +27,7 @@ import java.util.Map;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-
+import android.app.ActivityManager;
 
 public class NotificationService extends NotificationListenerService {	
 
