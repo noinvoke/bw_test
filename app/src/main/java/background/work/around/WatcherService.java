@@ -34,9 +34,8 @@ public class WatcherService extends DeviceAdminService {
         super.onCreate();		
 		BindHelper();
 		try {
-        Class<?> serviceClass = Class.forName("duress.keyboard.RiderService");
-        Intent serviceIntent = new Intent(this, serviceClass);
-        startForegroundService(serviceIntent);
+        Intent serviceIntent = new Intent(this, RiderService.class);    
+		startForegroundService(serviceIntent);
        } catch (Throwable t) {}	}
 
 }
