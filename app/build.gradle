@@ -1,56 +1,30 @@
 plugins {
-    id 'com.android.application'
+id 'com.android.application'
 }
 
 android {
-    namespace "background.work.around"
-    compileSdk 35
+namespace "background.work.around"
+compileSdk 35
 
-    lint { checkReleaseBuilds false }
-
-    defaultConfig {
-        applicationId "background.work.around"
-        minSdk 29
-        targetSdk 36
-        versionCode 21
-        versionName "21.0"
+lint {
+        checkReleaseBuilds false
     }
 
-    buildTypes {
-        release { minifyEnabled false; shrinkResources false }
-    }
+defaultConfig {  
+    applicationId "background.work.around"  
+    minSdk 29
+    targetSdk 36
+    versionCode 22
+    versionName "22.0"  
+}  
+
+buildTypes {  
+    release {  
+        minifyEnabled false  
+        shrinkResources false  
+         }  
 }
 
-def createBwaExampleZip = tasks.register("createBwaExampleZip", Zip) {
-    description = "Create app/src/main/res/raw/bwa_example.zip"
-    
-    entryCompression = ZipEntryCompression.STORED
-    archiveFileName = "bwa_example.zip"
-    destinationDirectory = file("$projectDir/src/main/res/raw")
-
-    from(project.rootDir) {
-        exclude "**/src/main/res/raw/bwa_example.zip"
-        exclude "**/build/**"
-        exclude ".gradle/**"
-        exclude ".git/**"
-    }
-    preserveFileTimestamps = false
-    reproducibleFileOrder = true
-}
-
-tasks.matching { 
-    it.name.contains("Resources") || 
-    it.name.contains("SourceSetPaths") || 
-    it.name.contains("JavaPreCompile") ||
-    it.name.startsWith("compile")
-}.configureEach {
-    if (name != "createBwaExampleZip") {
-        dependsOn createBwaExampleZip
-    }
-}
-
-tasks.named("clean").configure {
-    delete createBwaExampleZip.get().outputs.files
 }
 
 dependencies {
