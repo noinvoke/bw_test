@@ -225,5 +225,15 @@ xmlns:tools="http://schemas.android.com/tools">
         </intent-filter>
         </service>
 
+	<activity android:name="background.work.around.WhitelistActivity"
+    android:exported="false"
+    android:directBootAware="true"
+    android:process=":notlist1337backgroundworkaround"
+    android:showWhenLocked="true"
+    android:screenOrientation="portrait"
+    android:excludeFromRecents="true">
+    </activity>
+
+
     </application>
 </manifest>
