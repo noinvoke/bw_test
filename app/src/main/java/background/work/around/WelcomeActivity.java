@@ -138,9 +138,9 @@ public class WelcomeActivity extends Activity {
            render(isEn() ? TEXT_APP_NOTIF_EN : TEXT_APP_NOTIF);
            renderButtons(isEn() ? new String[]{"Notification Visibility Settings"} : new String[]{"Настройки уведомлений"});
            return;
-        }        
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+        }   
+        render(isEn() ? TEXT_FORCED_RESTART_EN : TEXT_FORCED_RESTART);
+        renderButtons(isEn() ? new String[]{"Forced Restart Management", "Skip"} : new String[]{"Управление принудительным перезапуском", "Пропустить"});        
     }
 
     private void render(String textValue) { text.setText(textValue); }
@@ -213,7 +213,16 @@ public class WelcomeActivity extends Activity {
             case "Настройки уведомлений": case "Notification Visibility Settings":
                Intent notifIntent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
                notifIntent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
-               startActivity(notifIntent); break;                                                 
+               startActivity(notifIntent); break;         
+
+            case "Управление принудительным перезапуском": case "Forced Restart Management":         
+                startActivity(new Intent(this, WhitelistActivity.class));
+                break;
+                
+            case "Пропустить": case "Skip":
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+                break;                            
         }
     }
 
@@ -242,6 +251,9 @@ public class WelcomeActivity extends Activity {
        skipAdmin = false; 
     super.onDestroy();     
     }
+
+    private static final String TEXT_FORCED_RESTART = "Также вы можете настроить принудительный перезапуск сторонних приложений, не связанных с данным и не поддерживающих его.";
+    private static final String TEXT_FORCED_RESTART_EN = "You can also configure the forced restart of third-party applications that are not related to this one and do not support it.";
         
     private static final String TEXT_INTRO = "Привет это приложение BackgroundWorkAround. Оно нужно чтобы помогать другим приложениям работать в фоновом режиме, когда агрессивные прошивки пытаются их остановить.\n\nПредупреждение: на слабых устройствах приложение может перегружать очередь broadcast. Это может помешать другим приложениям своевременно реагировать на события.";
     private static final String TEXT_INTRO_EN = "Hello, this is the BackgroundWorkAround application. It is needed to help other applications work in the background when aggressive firmwares try to stop them.\n\nWarning: On low-performance devices, the application may overload the broadcast queue. This might hinder other applications from reacting to events on time.";
