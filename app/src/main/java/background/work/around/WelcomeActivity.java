@@ -27,8 +27,7 @@ public class WelcomeActivity extends Activity {
     private static final String READ_INTRO = "read_intro";
     private TextView text;
     private LinearLayout buttonBox;
-    private boolean dialogShown = false;
-    private boolean skipAdmin = false;
+    private boolean dialogShown = false;    
 
     private boolean isBatteryOptimizationsIgnored() {
     android.os.PowerManager pm = (android.os.PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -123,9 +122,9 @@ public class WelcomeActivity extends Activity {
             }
             return;
         }
-        if (!admin && !skipAdmin) { 
+        if (!admin) { 
             render(isEn() ? TEXT_ADMIN_EN : TEXT_ADMIN);
-            renderButtons(isEn() ? new String[]{"Grant rights", "Skip this step"} : new String[]{"Дать права", "Пропустить этот шаг"});
+            renderButtons(isEn() ? new String[]{"Grant rights"} : new String[]{"Дать права"});
             return;
         }
         if (!isBatteryOptimizationsIgnored()) {
@@ -194,11 +193,7 @@ public class WelcomeActivity extends Activity {
             case "Дать права": case "Grant rights":
                 Intent adminIntent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
                 adminIntent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, new ComponentName(this, MyDeviceAdminReceiver.class));
-                startActivity(adminIntent); break;
-            case "Пропустить этот шаг": case "Skip this step":
-                skipAdmin = true;
-                updateUI(); 
-                break;
+                startActivity(adminIntent); break;            
             
            case "Отключить оптимизацию": case "Disable Optimization":
                 try {
@@ -248,7 +243,6 @@ public class WelcomeActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-       skipAdmin = false; 
     super.onDestroy();     
     }
 
