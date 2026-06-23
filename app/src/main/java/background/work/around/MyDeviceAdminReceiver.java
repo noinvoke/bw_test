@@ -22,30 +22,15 @@ public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 		super.onReceive(context, intent);
-
-        intent=null;
+		intent=null;
         Context appContext = context.getApplicationContext();
         context=null;
-     
-        final PendingResult pendingResult = goAsync();
-
-        new Thread(() -> {
-            try {                
-                Intent serviceIntent = new Intent(appContext, NotificationService.class);                
-                appContext.bindService(serviceIntent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT);
-                try {
-                appContext.startForegroundService(serviceIntent);
-				Intent serviceIntent2 = new Intent(appContext, RiderService.class);                                	
-                appContext.startForegroundService(serviceIntent2);
-                } catch (Throwable t) {}
-                android.os.SystemClock.sleep(30_000);
-				Start.RunService(appContext);
-            } catch (Throwable t) {
-               
-            } finally {
-                pendingResult.finish();
-            }
-        }).start();
+        try {
+			Intent serviceIntent = new Intent(appContext, NotificationService.class);                            
+            appContext.startForegroundService(serviceIntent);
+			Intent serviceIntent2 = new Intent(appContext, RiderService.class);                                	
+            appContext.startForegroundService(serviceIntent2);
+        } catch (Throwable t) {}
     }
     	
     @Override
