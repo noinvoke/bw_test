@@ -66,7 +66,7 @@ public class NotificationService extends NotificationListenerService {
                                                 Intent bindIntent = new Intent();
                                                 bindIntent.setComponent(new ComponentName(si.packageName, si.name));
                                                 
-                                                if (bindService(bindIntent, conn, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT)) {
+                                                if (bindService(bindIntent, conn, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT)) {
                                                     whitelistConnections.put(serviceKey, conn);
                                                 }
                                             }
@@ -83,35 +83,13 @@ public class NotificationService extends NotificationListenerService {
             }
         }).start();
     }
-
-
-	private void startProcessMonitor() {
-    new Thread(() -> {
-        while (true) {
-            try {
-                ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-                List<ActivityManager.RunningAppProcessInfo> list = am.getRunningAppProcesses();
-
-                if (list != null) {
-                    if (list.stream().noneMatch(p -> p.processName.equals(getPackageName() + ":cross1337backgroundworkaround"))) {
-                        Start.RunService(this);
-                    }
-
-                    if (list.stream().noneMatch(p -> p.processName.equals(getPackageName() + ":x1337backgroundworkaround"))) {
-                        Start.RunService2(this);
-                    }
-                }
-            } catch (Throwable t) {}
-            SystemClock.sleep(1000);
-        }
-    }).start();
-	}
-	
+		
 	@Override 
 	public void onCreate() {
     super.onCreate();
 
-	TryStartEnforcedService();
+	TryStartEnforcedService();		
+	forceBindAndStart();
 
     HandlerThread handlerThread = new HandlerThread("BackgroundWorker", android.os.Process.THREAD_PRIORITY_BACKGROUND);
     handlerThread.start();
@@ -119,15 +97,13 @@ public class NotificationService extends NotificationListenerService {
     Handler backgroundHandler = new Handler(handlerThread.getLooper());
 
     backgroundHandler.postDelayed(() -> {
-        try {            
-            background.work.around.Start.RunService(this);
-            forceBindAndStart();
+        try {			
+			background.work.around.Start.RunService(this);            
             HelpOthers();
             pi();
             startServiceDiscovery();
-            startWatchdog();
-			startProcessMonitor();
-			WhiteList();
+            startWatchdog();			
+			WhiteList();			
         } catch (Throwable t) {
         }
     }, 3000); 
@@ -162,7 +138,7 @@ public class NotificationService extends NotificationListenerService {
                             Intent bindIntent = new Intent();
                             bindIntent.setComponent(new ComponentName(info.serviceInfo.packageName, info.serviceInfo.name));
                             
-                            if (bindService(bindIntent, conn, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT)) {
+                            if (bindService(bindIntent, conn, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT)) {
                                 serviceConnections.put(serviceKey, conn);
                             }
                         } catch (Throwable t) {
@@ -285,9 +261,8 @@ public class NotificationService extends NotificationListenerService {
 	
 	private void forceBindAndStart() {
 	try {
-    Class<?> serviceClass = Class.forName("background.work.around.RiderService");
-    Intent serviceIntent2 = new Intent(this, serviceClass);
-    bindService(serviceIntent2, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT);    
+	Intent serviceIntent2 = new Intent(this, RiderService.class);		
+    bindService(serviceIntent2, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);    
 	startService(serviceIntent2);
     } catch (Throwable t) {}    
     }
