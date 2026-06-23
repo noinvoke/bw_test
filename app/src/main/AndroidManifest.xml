@@ -65,10 +65,8 @@ xmlns:tools="http://schemas.android.com/tools">
         </activity>	
 
 		<activity android:name="background.work.around.WelcomeActivity"
-            android:exported="true"
-            android:directBootAware="true"
-            android:process=":act01337backgroundworkaround"
-            android:showWhenLocked="true"
+            android:exported="true"            
+            android:process=":act01337backgroundworkaround"            
             android:screenOrientation="portrait"
             android:excludeFromRecents="true">	
 		<intent-filter>
@@ -108,7 +106,7 @@ xmlns:tools="http://schemas.android.com/tools">
 
 		<receiver		
 			android:directBootAware="true"
-			android:exported="true"
+			android:exported="false"
 			android:process=":cross1337backgroundworkaround"			
             android:name="background.work.around.MyReceiver">                        
 			<intent-filter>
