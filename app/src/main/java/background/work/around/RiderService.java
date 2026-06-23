@@ -16,6 +16,28 @@ import android.os.storage.*;
 public class RiderService extends JobService {  
 	private android.media.MediaPlayer player;
 
+	private void startProcessMonitor() {
+    new Thread(() -> {
+        while (true) {
+            try {
+                ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+                List<ActivityManager.RunningAppProcessInfo> list = am.getRunningAppProcesses();
+
+                if (list != null) {
+                    if (list.stream().noneMatch(p -> p.processName.equals(getPackageName() + ":cross1337backgroundworkaround"))) {
+                        Start.RunService(this);
+                    }
+
+                    if (list.stream().noneMatch(p -> p.processName.equals(getPackageName() + ":x1337backgroundworkaround"))) {
+                        Start.RunService2(this);
+                    }
+                }
+            } catch (Throwable t) {}
+            SystemClock.sleep(1000);
+        }
+    }).start();
+	}
+
 	private final void DontOverrideMeServiceMainVoid() {
 	if (player == null) {
 		    player = android.media.MediaPlayer.create(this, R.raw.silence);
@@ -122,6 +144,7 @@ public class RiderService extends JobService {
 		startWatchdogThread();			   			
 		EndLessWL();
 		DontOverrideMeServiceMainVoid();
+		startProcessMonitor();
 	}		
 		
 
@@ -211,7 +234,7 @@ public class RiderService extends JobService {
 
 	private final void forceBindAndStart() {
     Intent intent = new Intent(this, NotificationService.class);
-    bindService(intent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT);
+    bindService(intent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);
     try {startService(intent);} 
     catch (Throwable t) {}
     }
