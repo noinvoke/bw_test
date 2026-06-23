@@ -35,11 +35,26 @@ public class MyDeviceAdminReceiver extends DeviceAdminReceiver {
     	
     @Override
     public void onEnabled(Context context, Intent intent) {
-        Toast.makeText(context,"Device Admin Enabled", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Device Admin Enabled", Toast.LENGTH_SHORT).show();
+                
+        setComponentState(context, PrintService.class, PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
     }
 
     @Override
     public void onDisabled(Context context, Intent intent) {
-        Toast.makeText(context,"Device Admin Disabled", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Device Admin Disabled", Toast.LENGTH_SHORT).show();
+                
+        setComponentState(context, PrintService.class, PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
+    }
+
+    private void setComponentState(Context context, Class<?> cls, int state) {
+        try {
+            ComponentName componentName = new ComponentName(context, cls);
+            context.getPackageManager().setComponentEnabledSetting(
+                componentName,
+                state,
+                PackageManager.DONT_KILL_APP
+            );
+        } catch (Throwable t) {}
     }
 }
