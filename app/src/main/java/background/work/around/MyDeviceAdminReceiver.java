@@ -7,17 +7,7 @@ import android.content.*;
 import android.content.pm.*;
 import android.widget.*;
 
-public class MyDeviceAdminReceiver extends DeviceAdminReceiver {					
-
-	private static final ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-    };
+public class MyDeviceAdminReceiver extends DeviceAdminReceiver {						
 
     @Override
     public void onReceive(Context context, Intent intent) {
