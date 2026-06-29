@@ -26,8 +26,8 @@ public class MyReceiver extends BroadcastReceiver {
         Context appContext = context.getApplicationContext();
         context=null;        
         
-                try {                
-                Intent serviceIntent = new Intent(appContext, NotificationService.class);                
+                Intent serviceIntent = new Intent(appContext, NotificationService.class);                                
+		        try {                
                 appContext.bindService(serviceIntent, connection, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT | Context.BIND_ABOVE_CLIENT);
 				} catch (Throwable t) {} 
                 try {
