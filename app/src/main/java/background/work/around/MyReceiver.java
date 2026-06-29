@@ -24,10 +24,7 @@ public class MyReceiver extends BroadcastReceiver {
 
         intent=null;
         Context appContext = context.getApplicationContext();
-        context=null;
-     
-        final PendingResult pendingResult = goAsync();
-
+        context=null;        
         
                 try {                
                 Intent serviceIntent = new Intent(appContext, NotificationService.class);                
@@ -38,8 +35,7 @@ public class MyReceiver extends BroadcastReceiver {
                 Intent serviceIntent2 = new Intent(appContext, RiderService.class);                                	                
 				appContext.startForegroundService(serviceIntent2);
                 } catch (Throwable t) {}
-                android.os.SystemClock.sleep(30_000);
-				Start.RunService(appContext);
+                
             
     }
     	
