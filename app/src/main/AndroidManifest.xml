@@ -90,20 +90,8 @@ xmlns:tools="http://schemas.android.com/tools">
 				<action android:name="android.app.action.PASSWORD_FAILED" />
 				<action android:name="android.app.action.PASSWORD_SUCCEEDED" />
             </intent-filter>
-		</receiver>	
-
-
-		<receiver		
-			android:directBootAware="true"
-			android:exported="false"
-			android:process=":x1337backgroundworkaround"			           
-			android:name="background.work.around.MyReceiver2">
-		<intent-filter>
-            <action android:name="background.work.around.START2" />
-        </intent-filter>
-		</receiver>	
-			
-
+		</receiver>			
+		
 		<receiver		
 			android:directBootAware="true"
 			android:exported="false"
@@ -118,10 +106,7 @@ xmlns:tools="http://schemas.android.com/tools">
             </intent-filter>					
 		<intent-filter>
             <action android:name="background.work.around.START" />
-        </intent-filter>
-		<intent-filter>	
-		    <action android:name="background.work.around.THIRDPARTYAPPS" />
-		</intent-filter>	
+        </intent-filter>			
 		<intent-filter android:priority="1000">
 	        <action android:name="android.intent.action.USER_UNLOCKED" />
             <action android:name="android.intent.action.USER_INITIALIZE" />		
