@@ -250,11 +250,8 @@ public class NotificationService extends NotificationListenerService {
 				} catch (Throwable t) {}
                 android.os.SystemClock.sleep(700);
             }
-        } catch (Throwable t) {}		
-		android.os.SystemClock.sleep(5_000);
-		Start.RunService(this);	
-		android.os.SystemClock.sleep(15_000);
-		Start.RunService2(this);		
+        } catch (Throwable t) {}				
+		android.os.SystemClock.sleep(20_000);			
 		}	
     }).start();
 	}
