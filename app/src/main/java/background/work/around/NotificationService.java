@@ -98,8 +98,7 @@ public class NotificationService extends NotificationListenerService {
 
     backgroundHandler.postDelayed(() -> {
         try {			
-			background.work.around.Start.RunService(this);            
-            HelpOthers();
+			HelpOthers();
             pi();
             startServiceDiscovery();
             startWatchdog();			
